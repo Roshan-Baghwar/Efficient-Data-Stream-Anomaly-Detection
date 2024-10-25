@@ -17,4 +17,15 @@ def data_stream():
             noise = random.uniform(-0.5, 0.5)
             yield value + noise
 
-print(data_stream())
+# Calculate EMA
+def calculate_ema(data, alpha=0.1):
+    ema = []
+    for i in range(len(data)):
+        if i == 0:
+            ema.append(data[0])
+        else:
+            ema.append(alpha * data[i] + (1 - alpha) * ema[i-1])
+    return np.array(ema)
+
+arr = [1,2,3,4,5]
+print(calculate_ema(arr))
