@@ -16,3 +16,5 @@ def data_stream():
         for value in seasonal_variation:
             noise = random.uniform(-0.5, 0.5)
             yield value + noise
+
+print(data_stream())
