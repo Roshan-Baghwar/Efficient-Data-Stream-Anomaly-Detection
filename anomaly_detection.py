@@ -27,5 +27,14 @@ def calculate_ema(data, alpha=0.1):
             ema.append(alpha * data[i] + (1 - alpha) * ema[i-1])
     return np.array(ema)
 
+# Detect anomalies based on Z-score
+def detect_anomalies(data, ema, threshold=Z_THRESHOLD):
+    residuals = data - ema
+    std_dev = np.std(residuals)
+    z_scores = np.abs(residuals / std_dev)
+    anomalies = np.where(z_scores > threshold)[0]
+    return anomalies
+
 arr = [1,2,3,4,5]
-print(calculate_ema(arr))
+ema = calculate_ema(arr)
+print(arr, ema)
